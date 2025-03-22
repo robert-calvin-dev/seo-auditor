@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO Audit Report</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { padding: 20px; }
+        table { margin-bottom: 40px; }
+        .table-container { margin-bottom: 50px; }
+        .card { margin-bottom: 20px; }
+        .broken-link-list { font-size: 0.9rem; color: #555; }
+        .alt-img-list { font-size: 0.9rem; color: #555; }
+    </style>
+</head>
+<body>
+    <h1 class="mb-4">SEO Audit Report</h1>
+    <p>Generated on: {{ timestamp }}</p>
+
+    <div class="table-container">
+        <h2>Page Summary</h2>
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>URL</th>
+                    <th>Status</th>
+                    <th>Load Time (s)</th>
+                    <th>Title (length)</th>
+                    <th>Meta Description (length)</th>
+                    <th>H1 Count</th>
+                    <th>Missing ALT Images</th>
+                    <th>Broken Links</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data %}
+                <tr>
+                    <td><a href="{{ row['URL'] }}" target="_blank">{{ row['URL'] }}</a></td>
+                    <td>{{ row['Status Code'] }}</td>
+                    <td>{{ row['Load Time'] }}</td>
+                    <td>{{ row['Title'] }} ({{ row['Title Length'] }})</td>
+                    <td>{{ row['Meta Description'] }} ({{ row['Meta Length'] }})</td>
+                    <td>{{ row['H1 Tags'] }}</td>
+                    <td>{{ row['Missing ALT Images'] }}</td>
+                    <td>
+                        {{ row['Broken Links'] }}
+                        {% if row['Broken Links List']|length > 0 %}
+                        <details>
+                            <summary>View Broken Links</summary>
+                            <ul class="broken-link-list">
+                                {% for link in row['Broken Links List'] %}
+                                <li><a href="{{ link }}" target="_blank">{{ link }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </details>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-container">
+        <h2>Duplicate Titles</h2>
+        {% if duplicate_titles %}
+        {% for title, urls in duplicate_titles.items() %}
+            <div class="card">
+                <div class="card-header">{{ title }}</div>
+                <ul class="list-group list-group-flush">
+                    {% for url in urls %}
+                    <li class="list-group-item"><a href="{{ url }}" target="_blank">{{ url }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% else %}
+        <p>No duplicate titles found.</p>
+        {% endfor %}
+        {% endif %}
+    </div>
+
+    <div class="table-container">
+        <h2>Duplicate Meta Descriptions</h2>
+        {% if duplicate_meta %}
+        {% for meta, urls in duplicate_meta.items() %}
+            <div class="card">
+                <div class="card-header">{{ meta }}</div>
+                <ul class="list-group list-group-flush">
+                    {% for url in urls %}
+                    <li class="list-group-item"><a href="{{ url }}" target="_blank">{{ url }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% else %}
+        <p>No duplicate meta descriptions found.</p>
+        {% endfor %}
+        {% endif %}
+    </div>
+
+    <div class="table-container">
+        <h2>Collected External Links</h2>
+        {% if external_links %}
+        <ul>
+            {% for ext in external_links %}
+            <li><a href="{{ ext }}" target="_blank">{{ ext }}</a></li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No external links found.</p>
+        {% endif %}
+    </div>
+
+</body>
+</html>

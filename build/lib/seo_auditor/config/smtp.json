@@ -1,0 +1,7 @@
+{
+ "smtp_server": "smtp.yourprovider.com",
+ "smtp_port": 587,
+ "sender": "youremail@yourdomain.com",
+ "password": "your_email_password_or_app_password",
+ "recipient": "recipient@domain.com"
+}

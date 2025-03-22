@@ -1,0 +1,18 @@
+Metadata-Version: 2.4
+Name: seo-auditor
+Version: 1.0.0
+Summary: A CLI tool to audit websites for SEO issues and generate HTML/CSV reports.
+Author: Robert Mitchell
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Dist: requests
+Requires-Dist: beautifulsoup4
+Requires-Dist: lxml
+Requires-Dist: tldextract
+Requires-Dist: pandas
+Requires-Dist: jinja2
+Dynamic: author
+Dynamic: classifier
+Dynamic: requires-dist
+Dynamic: summary

@@ -1,0 +1,15 @@
+MANIFEST.in
+README.md
+setup.cfg
+setup.py
+seo_auditor/__init__.py
+seo_auditor/auditor.py
+seo_auditor/cli.py
+seo_auditor.egg-info/PKG-INFO
+seo_auditor.egg-info/SOURCES.txt
+seo_auditor.egg-info/dependency_links.txt
+seo_auditor.egg-info/entry_points.txt
+seo_auditor.egg-info/requires.txt
+seo_auditor.egg-info/top_level.txt
+seo_auditor/config/smtp.json
+seo_auditor/templates/report_template.html
